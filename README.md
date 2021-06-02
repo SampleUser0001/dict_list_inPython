@@ -1,17 +1,48 @@
-# Template Python on Docker
+# dict list inPython
 
-## 使い方
+dictとlistを同じループで動かしたい。（無理ー）
 
-1. Dockerfileのimageを変更する。
-2. 必要に応じてDockerfileにpipを書く。
-3. 必要に応じてdocker-compose.ymlを修正する。
-4. 下記実行。
-    ``` sh
-    docker-compose build
-    docker-compose up
-    ```
+listはint, dictはstringでループを回さないといけないから無理…ということだと思う。
 
-## 参考
+## ソース
 
-- [Qiita:Docker を使う（python のイメージで色々確認してみる）](https://qiita.com/landwarrior/items/fd918da9ebae20486b81)
-- [Future Tech Blog:仕事でPythonコンテナをデプロイする人向けのDockerfile (1): オールマイティ編](https://future-architect.github.io/articles/20200513/)
+### loop_dict
+
+``` python
+def loop_dict(items):
+  for key in items:
+    print(items[key])
+```
+
+### loop_list
+
+``` python
+def loop_list(items):
+  for i in range(len(items)):
+    print(items[i])
+```
+
+## 実際に使ってみる
+
+### loop_dict(tmp_list)
+
+``` txt
+loop_python | Traceback (most recent call last):
+loop_python |   File "/opt/app/src/app.py", line 20, in <module>
+loop_python |     loop_dict(tmp_list)
+loop_python |   File "/opt/app/src/app.py", line 5, in loop_dict
+loop_python |     print(items[key])
+loop_python | TypeError: list indices must be integers or slices, not str
+```
+
+### loop_list(tmp_dict)
+
+``` txt
+loop_python | Traceback (most recent call last):
+loop_python |   File "/opt/app/src/app.py", line 21, in <module>
+loop_python |     loop_list(tmp_dict)
+loop_python |   File "/opt/app/src/app.py", line 9, in loop_list
+loop_python |     print(items[i])
+loop_python | KeyError: 0
+```
+
